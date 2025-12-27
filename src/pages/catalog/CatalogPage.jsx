@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import "./catalog.css";
-import catalog_list from "../../utilities/catalog_list.json";
-import CatalogItem from "./CatalogItem";
+import { useNavigate } from "react-router-dom";
 import Pagination from "../../components/shared/Pagination";
+import CatalogItem from "./CatalogItem";
+import catalog_list from "../../utilities/catalog_list.json";
 import { getMinMaxPrice } from "../../utilities/utils";
+import "./catalog.css";
+import { AppRoutes } from "../../routes/appRoutes";
 
 const ITEMS_PER_PAGE = 10;
 const DEBOUNCE_DELAY = 300;
@@ -18,6 +20,7 @@ export default function CatalogPage() {
 
     const [searchInput, setSearchInput] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
 
     /* ---------------- Debounce precio ---------------- */
     useEffect(() => {
@@ -84,6 +87,10 @@ export default function CatalogPage() {
         setSearchInput("");
         setSearchTerm("");
     };
+
+    const handleViewDetail = (book) => {
+        navigate(AppRoutes.bookDetail.replace(":id", book.titulo), { replace: true, state: { book} });
+    }
 
     return (
         <div className="catalog-container">
@@ -160,7 +167,8 @@ export default function CatalogPage() {
                         {paginatedItems.map(item => (
                             <CatalogItem
                                 key={`${item.titulo}-${item.autor}`}
-                                {...item}
+                                onViewDetail={handleViewDetail}
+                                data={item}
                             />
                         ))}
                     </div>

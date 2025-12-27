@@ -3,7 +3,7 @@ export const AppRoutes = {
     home: "/",
     auth: "/auth",
     cart: "/carrito",
-    bookDetail: "/libro/:slug",
+    bookDetail: "/libro/:id",
 
     private: {
         root: "/cuenta",
