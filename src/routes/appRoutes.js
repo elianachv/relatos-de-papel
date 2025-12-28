@@ -10,6 +10,7 @@ export const AppRoutes = {
         orders: "pedidos",
         profile: "perfil",
         addresses: "direcciones",
-        wishlist: "wishlist"
+        wishlist: "wishlist",
+        checkout: "checkout"
     }
 }

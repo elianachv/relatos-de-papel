@@ -6,6 +6,7 @@ import CatalogPage from "./pages/catalog/CatalogPage";
 import AuthPage from "./pages/auth/AuthPage";
 import CatalogItemDetail from "./pages/catalog/CatalogItemDetail";
 import CartPage from "./pages/cart/CartPage";
+import CheckoutPage from "./pages/checkout/CheckoutPage";
 
 export default function AppRouter() {
     return (
@@ -16,6 +17,7 @@ export default function AppRouter() {
                     <Route path={AppRoutes.auth} element={<AuthPage />} />
                     <Route path={AppRoutes.bookDetail} element={<CatalogItemDetail />} />
                     <Route path={AppRoutes.cart} element={<CartPage />} />
+                    <Route path={AppRoutes.private.checkout} element={<CheckoutPage />} />
                 </Route>
             </RoutesWithNotFound>
         </BrowserRouter>
