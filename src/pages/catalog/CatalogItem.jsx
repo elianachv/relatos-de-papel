@@ -30,10 +30,10 @@ export default function CatalogItem({ data, onViewDetail }) {
                 {renderStars()}
                 <div className="catalog-item-price">${precio_usd.toFixed(2)}</div>
                 <div className="d-flex gap-2">
-                    <button className="btn btn-info w-50 catalog-item-button" onClick={() => onViewDetail(data)}>
+                    <button className="btn btn-info w-75 w-md-50 catalog-item-button" onClick={() => onViewDetail(data)}>
                         Ver detalle
                     </button>
-                    <button className="btn btn-dark w-50 catalog-item-button">
+                    <button className="btn btn-dark w-25 w-md-50 catalog-item-button">
                         🛒
                     </button>
                 </div>
