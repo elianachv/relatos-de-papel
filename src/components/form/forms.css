@@ -1,0 +1,49 @@
+
+/* Contenedor principal */
+.password-field {
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+/* nput con espacio para el ícono */
+.password-field-input {
+    padding-right: 45px !important; /* pe-5 equivalente */
+}
+
+/* Botón toggle  */
+.password-toggle-btn {
+    position: absolute;
+    right: 12px;
+    top: 33px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    text-decoration: none;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 5;
+    color: #6c757d;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.password-toggle-btn:hover {
+    color: #495057; /* Color más oscuro al hover */
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.password-toggle-btn:focus {
+    outline: 2px solid #0d6efd;
+    outline-offset: 2px;
+}
+
+.password-toggle-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

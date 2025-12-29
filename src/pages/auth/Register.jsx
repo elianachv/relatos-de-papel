@@ -1,59 +1,61 @@
-export default function Register({ handleRegisterSubmit, handleRegisterChange, registerData }) {
+import React from 'react';
+import EmailField from '../../components/form/EmailField.jsx';
+import PasswordField from '../../components/form/PasswordField.jsx';
+import CheckboxField from '../../components/form/CheckboxField.jsx';
+
+export default function Register({
+                                     handleRegisterSubmit,
+                                     handleRegisterChange,
+                                     registerData,
+                                     errors = {}  // ← Agregar errors como prop
+                                 }) {
     return (
         <form onSubmit={handleRegisterSubmit}>
-            <div className="mb-3">
-                <label className="form-label">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    className="form-control"
-                    required
-                    value={registerData.email}
-                    onChange={handleRegisterChange}
-                />
-            </div>
+            {/* Campo de Email */}
+            <EmailField
+                value={registerData.email}
+                onChange={handleRegisterChange}
+                error={errors.email}
+                label="Email"
+                placeholder="tu@email.com"
+            />
 
-            <div className="mb-3">
-                <label className="form-label">Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    className="form-control"
-                    required
-                    value={registerData.password}
-                    onChange={handleRegisterChange}
-                />
-            </div>
+            {/* Campo de Password */}
+            <PasswordField
+                value={registerData.password}
+                onChange={handleRegisterChange}
+                error={errors.password}
+                label="Contraseña"
+                showToggle={true}
+                placeholder=""
+            />
 
-            <div className="mb-3">
-                <label className="form-label">Confirm Password</label>
-                <input
-                    type="password"
-                    name="confirmPassword"
-                    className="form-control"
-                    required
-                    value={registerData.confirmPassword}
-                    onChange={handleRegisterChange}
-                />
-            </div>
+            {/* Campo de Confirmar Password */}
+            <PasswordField
+                value={registerData.confirmPassword}
+                onChange={handleRegisterChange}
+                error={errors.confirmPassword}
+                label="Confirmar Contraseña"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder=""
+                showToggle={true}
+            />
 
-            <div className="form-check mb-3">
-                <input
-                    className="form-check-input"
-                    type="checkbox"
-                    name="terms"
-                    id="terms"
-                    checked={registerData.terms}
-                    onChange={handleRegisterChange}
-                />
-                <label className="form-check-label" htmlFor="terms">
-                    Acepto los términos y condiciones
-                </label>
-            </div>
+            {/* Checkbox de Términos y Condiciones */}
+            <CheckboxField
+                name="terms"
+                id="terms"
+                checked={registerData.terms || false}
+                onChange={handleRegisterChange}
+                label="Acepto los términos y condiciones"
+                error={errors.terms}
+                required={true}
+            />
 
-            <button className="btn btn-dark w-100">
+            <button type="submit" className="btn btn-dark w-100 mt-4">
                 Registrarse
             </button>
         </form>
-    )
+    );
 }

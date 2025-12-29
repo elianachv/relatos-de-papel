@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import AddToCartButton from '../../components/shared/AddToCartButton'
 import avatar_usuario from '../../assets/images/user.png';
 
 export default function CatalogItemDetail() {
@@ -33,10 +34,11 @@ export default function CatalogItemDetail() {
                     <p className="fs-5 fw-bold m-0">${precio_usd}</p>
                     {renderStock()}
                 </div>
-                <button className="btn btn-dark mb-2">
-                    <span className="me-2">🛒</span>
-                    Añadir al carrito
-                </button>
+                <AddToCartButton
+                    book={book}
+                    className="mb-2"
+                    showPrice={false}
+                />
                 <div className="alert alert-info" role="alert">
                     <p className="m-0"><b>Entrega Digital:</b> Recibe el acceso instantáneo tras la compra.</p>
                 </div>
