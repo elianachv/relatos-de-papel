@@ -1,26 +1,88 @@
+import { useState } from 'react';
 import { FaRegTrashAlt } from "react-icons/fa";
-import imagen from '../../assets/images/user.png';
-export default function CartItem() {
+
+export default function CartItem({
+                                     itemId,
+                                     itemName = "Libro 1",
+                                     price = 20.00,
+                                     initialQuantity = 1,
+                                     image,
+                                     onQuantityChange,
+                                     onRemove
+                                 }) {
+    const [quantity, setQuantity] = useState(initialQuantity);
+
+    const itemTotal = price * quantity;
+
+    const handleIncrement = () => {
+        const newQuantity = quantity + 1;
+        setQuantity(newQuantity);
+        if (onQuantityChange) {
+            onQuantityChange(itemId, newQuantity);
+        }
+    };
+
+    const handleDecrement = () => {
+        if (quantity > 1) {
+            const newQuantity = quantity - 1;
+            setQuantity(newQuantity);
+            if (onQuantityChange) {
+                onQuantityChange(itemId, newQuantity);
+            }
+        }
+    };
+
+    const handleRemoveClick = () => {
+        if (window.confirm(`¿Eliminar "${itemName}" del carrito?`)) {
+            if (onRemove) {
+                onRemove();
+            }
+        }
+    };
+
     return (
-        <div className="d-flex gap-2 border-bottom mb-2">
+        <div className="cart-item">
             <div className="cart-item-image">
-                <img className="img-fluid object-fit-cover" src={imagen} alt="Libro 1" />
+                <img src={image} alt={itemName} />
             </div>
             <div className="cart-item-body">
-                <div className="d-flex justify-content-between align-items-center mb-2 p-2">
-                    <h6 className="m-0">Libro 1</h6>
-                    <button className="btn btn-sm"><FaRegTrashAlt color="red"/></button>
-                </div>
-                <div className="d-flex justify-content-between p-2 align-items-center">
-                    <div className="cart-item-quantity">
-                        <span>-</span>
-                        <span>1</span>
-                        <span>+</span>
-                    </div>
-                    <span>$20.00</span>
+                <div className="cart-item-header">
+                    <h6 className="cart-item-title">{itemName}</h6>
+                    <button
+                        className="cart-item-remove-btn"
+                        onClick={handleRemoveClick}
+                        aria-label={`Eliminar ${itemName} del carrito`}
+                    >
+                        <FaRegTrashAlt />
+                    </button>
                 </div>
 
+                <div className="d-flex justify-content-between align-items-center">
+                    <div className="cart-item-quantity">
+                        <button
+                            className="btn"
+                            onClick={handleDecrement}
+                            disabled={quantity <= 1}
+                            aria-label="Reducir cantidad"
+                        >
+                            -
+                        </button>
+                        <span className="quantity-display">{quantity}</span>
+                        <button
+                            className="btn"
+                            onClick={handleIncrement}
+                            aria-label="Aumentar cantidad"
+                        >
+                            +
+                        </button>
+                    </div>
+
+                    <div className="cart-item-prices">
+                        <span className="cart-item-price-unit">${price.toFixed(2)} c/u</span>
+                        <span className="cart-item-price-total">${itemTotal.toFixed(2)}</span>
+                    </div>
+                </div>
             </div>
         </div>
-    )
+    );
 }
