@@ -1,11 +1,10 @@
-// pages/auth/Login.jsx
 import React, { useState } from 'react';
 import EmailField from '../../components/form/EmailField';
 import PasswordField from '../../components/form/PasswordField';
 
 export default function Login({ handleLoginSubmit, loginData: initialData }) {
     const [loginData, setLoginData] = useState(initialData || { email: '', password: '' });
-    const [errors, setErrors] = useState({});  // ← Estado local para errores
+    const [errors, setErrors] = useState({});  //Para errores
 
     const handleChange = (e) => {
         const { name, value } = e.target;

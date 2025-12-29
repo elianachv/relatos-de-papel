@@ -1,4 +1,3 @@
-
 export default function Pagination({ currentPage = 1, totalPages = 1, onPageChange }) {
     const handlePageChange = (page) => {
         if (page >= 1 && page <= totalPages && page !== currentPage && onPageChange) {

@@ -7,7 +7,7 @@ export default function Register({
                                      handleRegisterSubmit,
                                      handleRegisterChange,
                                      registerData,
-                                     errors = {}  // ← Agregar errors como prop
+                                     errors = {}  // errors como prop
                                  }) {
     return (
         <form onSubmit={handleRegisterSubmit}>
