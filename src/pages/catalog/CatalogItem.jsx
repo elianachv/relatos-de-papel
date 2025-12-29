@@ -1,3 +1,5 @@
+import AddToCartButton from "../../components/shared/AddToCartButton";
+
 export default function CatalogItem({ data, onViewDetail }) {
     const { url_caratula, titulo, calificacion = 0, precio_usd = 0 } = data;
     // Renderizar estrellas de calificación
@@ -30,12 +32,14 @@ export default function CatalogItem({ data, onViewDetail }) {
                 {renderStars()}
                 <div className="catalog-item-price">${precio_usd.toFixed(2)}</div>
                 <div className="d-flex gap-2">
-                    <button className="btn btn-info w-75 w-md-50 catalog-item-button" onClick={() => onViewDetail(data)}>
+                    <button className="btn btn-info w-75 catalog-item-button" onClick={() => onViewDetail(data)}>
                         Ver detalle
                     </button>
-                    <button className="btn btn-dark w-25 w-md-50 catalog-item-button">
-                        🛒
-                    </button>
+                    <AddToCartButton
+                        book={data}
+                        className="w-25 catalog-item-button"
+                        showMsg={false}
+                    />
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaRegTrashAlt } from "react-icons/fa";
 
 export default function CartItem({
@@ -11,6 +11,11 @@ export default function CartItem({
                                      onRemove
                                  }) {
     const [quantity, setQuantity] = useState(initialQuantity);
+
+    // Sincronizar cantidad cuando cambie desde el contexto
+    useEffect(() => {
+        setQuantity(initialQuantity);
+    }, [initialQuantity]);
 
     const itemTotal = price * quantity;
 
@@ -35,7 +40,7 @@ export default function CartItem({
     const handleRemoveClick = () => {
         if (window.confirm(`¿Eliminar "${itemName}" del carrito?`)) {
             if (onRemove) {
-                onRemove();
+                onRemove(itemId);
             }
         }
     };

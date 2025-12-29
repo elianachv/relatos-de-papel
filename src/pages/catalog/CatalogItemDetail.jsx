@@ -37,7 +37,6 @@ export default function CatalogItemDetail() {
                 <AddToCartButton
                     book={book}
                     className="mb-2"
-                    showPrice={false}
                 />
                 <div className="alert alert-info" role="alert">
                     <p className="m-0"><b>Entrega Digital:</b> Recibe el acceso instantáneo tras la compra.</p>

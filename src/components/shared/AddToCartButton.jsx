@@ -1,15 +1,24 @@
 import React from 'react';
+import { useCart } from '../../context/CartContext';
 
-function AddToCartButton({ book, className = '' }) {
+function AddToCartButton({ book, className = '', showMsg = true }) {
     const { stock, titulo, precio_usd } = book;
+    const { addToCart, isInCart, getItemQuantity } = useCart();
 
     const handleAddToCart = () => {
-        // Aquí iría la lógica para añadir al carrito
-        console.log(`Añadiendo "${titulo}" al carrito por $${precio_usd}`);
-
+        addToCart(book);
     };
 
     const isOutOfStock = stock <= 0;
+    const inCart = isInCart(titulo);
+    const quantity = getItemQuantity(titulo);
+    
+    let msg = "Añadir al carrito";
+    if (isOutOfStock) {
+        msg = "Agotado";
+    } else if (inCart) {
+        msg = `En carrito (${quantity})`;
+    }
 
     return (
         <button
@@ -19,7 +28,7 @@ function AddToCartButton({ book, className = '' }) {
             title={isOutOfStock ? "Producto agotado" : `Añadir "${titulo}" al carrito`}
         >
             <span className="me-2">🛒</span>
-            {isOutOfStock ? "Agotado" : "Añadir al carrito"}
+            {showMsg ? msg : null}
         </button>
     );
 }

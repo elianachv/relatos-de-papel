@@ -1,71 +1,52 @@
 import { useState } from 'react';
 import CartItem from './CartItem';
-import './cart.css'; // Asegúrate de importar el CSS
+import { useCart } from '../../context/CartContext';
+import './cart.css';
+import { AppRoutes } from '../../routes/appRoutes';
+import { NavLink } from 'react-router-dom';
 
 export default function CartPage() {
-    const [cartItems, setCartItems] = useState([
-        {
-            id: 1,
-            name: "Libro 1",
-            price: 20.00,
-            quantity: 1,
-            image: "https://via.placeholder.com/80x100"
-        },
-        {
-            id: 2,
-            name: "Libro 2",
-            price: 25.00,
-            quantity: 2,
-            image: "https://via.placeholder.com/80x100"
-        },
-        {
-            id: 3,
-            name: "Libro 3",
-            price: 30.00,
-            quantity: 1,
-            image: "https://via.placeholder.com/80x100"
-        }
-    ]);
+    const {
+        cartItems,
+        updateQuantity,
+        removeFromCart,
+        getTotalItems,
+        getSubtotal,
+        getTotal,
+        discount,
+        couponCode,
+        applyCoupon,
+        removeCoupon
+    } = useCart();
 
     const [coupon, setCoupon] = useState('');
-    const [discount, setDiscount] = useState(0);
-    const [discountApplied, setDiscountApplied] = useState(false);
 
-    // Calcular subtotal
-    const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-    const total = subtotal - discount;
-    const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
-    const handleQuantityChange = (itemId, newQuantity) => {
-        setCartItems(prevItems =>
-            prevItems.map(item =>
-                item.id === itemId ? { ...item, quantity: newQuantity } : item
-            )
-        );
+    const subtotal = getSubtotal();
+    const total = getTotal();
+    const totalItems = getTotalItems();
+    const discountApplied = discount > 0;
+
+    const handleQuantityChange = (titulo, newQuantity) => {
+        updateQuantity(titulo, newQuantity);
     };
 
-    const handleRemoveItem = (itemId) => {
-        setCartItems(prevItems => prevItems.filter(item => item.id !== itemId));
+    const handleRemoveItem = (titulo) => {
+        removeFromCart(titulo);
     };
 
     const handleApplyCoupon = () => {
         if (!coupon.trim()) return;
 
-        const couponCodes = {
-            'DESCUENTO10': 0.10,
-            'DESCUENTO20': 0.20,
-        };
-
-        if (couponCodes[coupon.toUpperCase()]) {
-            const discountRate = couponCodes[coupon.toUpperCase()];
-            const discountAmount = subtotal * discountRate;
-            setDiscount(discountAmount);
-            setDiscountApplied(true);
-        } else {
-            alert('Cupón no válido');
-            setDiscount(0);
-            setDiscountApplied(false);
+        const result = applyCoupon(coupon);
+        if (!result.success) {
+            alert(result.message);
         }
+    };
+
+    const handleRemoveCoupon = () => {
+        removeCoupon();
+        setCoupon('');
     };
 
     return (
@@ -83,14 +64,14 @@ export default function CartPage() {
                         ) : (
                             cartItems.map(item => (
                                 <CartItem
-                                    key={item.id}
-                                    itemId={item.id}
-                                    itemName={item.name}
-                                    price={item.price}
+                                    key={item.titulo}
+                                    itemId={item.titulo}
+                                    itemName={item.titulo}
+                                    price={item.precio_usd}
                                     initialQuantity={item.quantity}
-                                    image={item.image}
+                                    image={item.url_caratula}
                                     onQuantityChange={handleQuantityChange}
-                                    onRemove={() => handleRemoveItem(item.id)}
+                                    onRemove={handleRemoveItem}
                                 />
                             ))
                         )}
@@ -107,33 +88,47 @@ export default function CartPage() {
                     </div>
                 </div>
 
-                {/* Columna derecha - Resumen */}
+                {/* Resumen */}
                 <div className="col-12 col-lg-4">
                     <div className="cart-summary-card">
                         <h5 className="cart-summary-title">Resumen del pedido</h5>
 
-                        {/* Cupón */}
+
                         <div className="coupon-section">
                             <label className="coupon-label">Código de descuento</label>
-                            <div className="coupon-input-group">
-                                <input
-                                    type="text"
-                                    className="coupon-input"
-                                    placeholder="Ingrese su código"
-                                    value={coupon}
-                                    onChange={(e) => setCoupon(e.target.value)}
-                                    disabled={discountApplied}
-                                />
-                                <button className="coupon-btn"
+                            {discountApplied ? (
+                                <div className="d-flex align-items-center justify-content-between mb-2">
+                                    <span className="text-success small">
+                                        <i className="bi bi-check-circle me-1"></i>
+                                        Cupón aplicado: {couponCode}
+                                    </span>
+                                    <button
+                                        className="btn btn-sm btn-outline-danger"
+                                        onClick={handleRemoveCoupon}
+                                    >
+                                        Remover
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="coupon-input-group">
+                                    <input
+                                        type="text"
+                                        className="coupon-input"
+                                        placeholder="Ingrese su código"
+                                        value={coupon}
+                                        onChange={(e) => setCoupon(e.target.value)}
+                                    />
+                                    <button
+                                        className="coupon-btn"
                                         onClick={handleApplyCoupon}
-                                        disabled={discountApplied || !coupon.trim()}
-                                >
-                                    {discountApplied ? '✓' : 'Aplicar'}
-                                </button>
-                            </div>
+                                        disabled={!coupon.trim()}
+                                    >
+                                        Aplicar
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
-                        {/* Precios */}
                         <div className="price-breakdown">
                             <div className="price-row">
                                 <span>Subtotal</span>
@@ -151,34 +146,20 @@ export default function CartPage() {
                             </div>
                         </div>
 
-                        {/* Total */}
                         <div className="total-section">
                             <span>Total</span>
                             <span>${total.toFixed(2)}</span>
                         </div>
 
-                        {/* Botón de pago */}
                         <button className="checkout-btn">
                             Proceder al pago
                         </button>
-
-                        {/* Métodos de pago
-                        <div className="payment-methods">
-                            <p className="payment-methods-title">Métodos de pago aceptados:</p>
-                            <div className="payment-icons">
-                                <i className="bi bi-credit-card text-muted"></i>
-                                <i className="bi bi-paypal text-primary"></i>
-                                <i className="bi bi-google text-success"></i>
-                            </div>
-                        </div>*/}
                     </div>
 
-                    {/* Continuar comprando */}
                     <div className="continue-shopping">
-                        <a href="/catalog">
-                            <i className="bi bi-arrow-left"></i>
+                        <NavLink to={AppRoutes.home}>
                             Continuar comprando
-                        </a>
+                        </NavLink>
                     </div>
                 </div>
             </div>

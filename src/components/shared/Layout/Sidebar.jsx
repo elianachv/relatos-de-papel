@@ -11,7 +11,6 @@ export default function Sidebar() {
         }`}
       style={{ width: collapsed ? "80px" : "240px", transition: "width 0.3s" }}
     >
-      {/* Brand */}
       <div className={`d-flex ${collapsed ? "justify-content-center" : "justify-content-between"} align-items-center mb-4`}>
         {!collapsed && <h5 className="mb-0">Relatos de Papel</h5>}
         <button
