@@ -9,11 +9,13 @@ import CartPage from "./pages/cart/CartPage";
 import CheckoutPage from "./pages/checkout/CheckoutPage";
 import OrdersPage from "./pages/account/OrdersPage";
 import AuthGuard from "./guard/AuthGuard";
+import LandingPage from "./pages/landing/LandingPage";
 
 export default function AppRouter() {
     return (
         <BrowserRouter>
             <RoutesWithNotFound>
+                <Route path={AppRoutes.landing} element={<LandingPage />} />
                 <Route path={AppRoutes.home} element={<PublicLayout />}>
                     <Route path={AppRoutes.home} element={<CatalogPage />} />
                     <Route path={AppRoutes.auth} element={<AuthPage />} />
