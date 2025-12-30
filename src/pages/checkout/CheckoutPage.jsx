@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaCreditCard, FaPaypal } from "react-icons/fa";
 import { useCart } from '../../context/CartContext';
-import { useAuth } from '../../context/AuthContext';
 import { AppRoutes } from '../../routes/appRoutes';
 import InputField from '../../components/form/InputField';
 import './checkout.css';
@@ -10,7 +9,7 @@ import './checkout.css';
 export default function CheckoutPage() {
     const navigate = useNavigate();
     const { processOrder } = useCart();
-    const { user } = useAuth();
+    
 
     const [formData, setFormData] = useState({
         address: '',
@@ -24,7 +23,7 @@ export default function CheckoutPage() {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        processOrder(formData, user);
+        processOrder(formData);
         
         // Navegar a la página de pedidos
         navigate(AppRoutes.private.orders);

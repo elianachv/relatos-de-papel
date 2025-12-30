@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
-
+import { useAuth } from "./AuthContext";
 const CartContext = createContext(null);
 const couponCodes = {
   'DESCUENTO10': 0.10,
   'DESCUENTO20': 0.20,
 };
 export function CartProvider({ children }) {
+  const { user } = useAuth();
   const [cartItems, setCartItems] = useState([]);
   const [discount, setDiscount] = useState(0);
   const [couponCode, setCouponCode] = useState('');
@@ -187,7 +188,7 @@ export function CartProvider({ children }) {
     return item ? item.quantity : 0;
   };
 
-  const processOrder = (formData, user) => {
+  const processOrder = (formData) => {
     // Validar que haya items en el carrito
     if (cartItems.length === 0) {
       alert('El carrito está vacío');
