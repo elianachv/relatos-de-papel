@@ -68,6 +68,45 @@
     "reviewRequirementPurchased": "You must have purchased this book to post a review",
     "reviewRequirementLogin": "You must log in and have purchased this book to post a review",
     "noReviewsYet": "No reviews yet for this book. Be the first to review!"
+  },
+  "cart": {
+    "title": "Your Cart",
+    "item": "item",
+    "items": "items",
+    "empty": "Your cart is empty",
+    "preliminarySubtotal": "Preliminary subtotal:",
+    "taxNotice": "Taxes and shipping costs will be calculated at checkout",
+    "orderSummary": "Order summary",
+    "discountCode": "Discount code",
+    "couponApplied": "Coupon applied:",
+    "remove": "Remove",
+    "enterCode": "Enter your code",
+    "apply": "Apply",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "shipping": "Shipping",
+    "free": "Free",
+    "total": "Total",
+    "proceedToPayment": "Proceed to payment",
+    "continueShopping": "Continue shopping",
+    "removeItemConfirm": "Remove \"{{itemName}}\" from cart?",
+    "removeItem": "Remove {{itemName}} from cart",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "perUnit": "each",
+    "emptyCart": "The cart is empty",
+    "invalidCoupon": "Invalid coupon",
+    "couponAppliedSuccess": "Coupon applied successfully",
+    "purchaseSuccess": "Purchase completed successfully!"
+  },
+  "checkout": {
+    "title": "Complete purchase",
+    "shippingAddress": "Shipping address",
+    "paymentMethod": "Payment method",
+    "creditDebitCard": "Credit / Debit Card",
+    "paypal": "PayPal",
+    "confirmAndPay": "Confirm and pay",
+    "addressRequired": "Please enter a shipping address"
   }
 }
 

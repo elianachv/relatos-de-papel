@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from "react-i18next";
 import { FaRegTrashAlt } from "react-icons/fa";
 
 export default function CartItem({
@@ -10,6 +11,7 @@ export default function CartItem({
                                      onQuantityChange,
                                      onRemove
                                  }) {
+    const { t } = useTranslation();
     const [quantity, setQuantity] = useState(initialQuantity);
 
     // Sincronizar cantidad cuando cambie desde el contexto
@@ -38,7 +40,7 @@ export default function CartItem({
     };
 
     const handleRemoveClick = () => {
-        if (window.confirm(`¿Eliminar "${itemName}" del carrito?`)) {
+        if (window.confirm(t('cart.removeItemConfirm', { itemName }))) {
             if (onRemove) {
                 onRemove(itemId);
             }
@@ -56,7 +58,7 @@ export default function CartItem({
                     <button
                         className="cart-item-remove-btn"
                         onClick={handleRemoveClick}
-                        aria-label={`Eliminar ${itemName} del carrito`}
+                        aria-label={t('cart.removeItem', { itemName })}
                     >
                         <FaRegTrashAlt />
                     </button>
@@ -68,7 +70,7 @@ export default function CartItem({
                             className="btn"
                             onClick={handleDecrement}
                             disabled={quantity <= 1}
-                            aria-label="Reducir cantidad"
+                            aria-label={t('cart.decreaseQuantity')}
                         >
                             -
                         </button>
@@ -76,14 +78,14 @@ export default function CartItem({
                         <button
                             className="btn"
                             onClick={handleIncrement}
-                            aria-label="Aumentar cantidad"
+                            aria-label={t('cart.increaseQuantity')}
                         >
                             +
                         </button>
                     </div>
 
                     <div className="cart-item-prices">
-                        <span className="cart-item-price-unit">${price.toFixed(2)} c/u</span>
+                        <span className="cart-item-price-unit">${price.toFixed(2)} {t('cart.perUnit')}</span>
                         <span className="cart-item-price-total">${itemTotal.toFixed(2)}</span>
                     </div>
                 </div>

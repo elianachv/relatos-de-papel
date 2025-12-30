@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 import { FaCreditCard, FaPaypal } from "react-icons/fa";
 import { useCart } from '../../context/CartContext';
 import { AppRoutes } from '../../routes/appRoutes';
@@ -7,6 +8,7 @@ import InputField from '../../components/form/InputField';
 import './checkout.css';
 
 export default function CheckoutPage() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { processOrder } = useCart();
     
@@ -31,9 +33,9 @@ export default function CheckoutPage() {
 
     return (
         <div className="card p-3">
-            <h5>Finalizar compra</h5>
-            <InputField label="Dirección de envío" name="address" value={formData.address} onChange={handleChange} />
-            <h5>Metodo de pago</h5>
+            <h5>{t('checkout.title')}</h5>
+            <InputField label={t('checkout.shippingAddress')} name="address" value={formData.address} onChange={handleChange} />
+            <h5>{t('checkout.paymentMethod')}</h5>
             <label className={`payment-option d-flex align-items-center mb-3 ${formData.payment === 'card' ? 'active' : ''}`}>
                 <input
                     type="radio"
@@ -43,7 +45,7 @@ export default function CheckoutPage() {
                     onChange={handleChange}
                 />
                 <span className="me-2"><FaCreditCard /></span>
-                    <strong>Tarjeta de Crédito / Débito</strong>
+                    <strong>{t('checkout.creditDebitCard')}</strong>
             </label>
 
             <label className={`payment-option d-flex align-items-center ${formData.payment === 'paypal' ? 'active' : ''}`}>
@@ -55,10 +57,10 @@ export default function CheckoutPage() {
                     onChange={handleChange}
                 />
                 <span className="me-2"><FaPaypal /></span>
-                <strong>PayPal</strong>
+                <strong>{t('checkout.paypal')}</strong>
             </label>
 
-            <button className="btn btn-dark w-100 mt-2" onClick={handleSubmit}>Confirmar y pagar</button>
+            <button className="btn btn-dark w-100 mt-2" onClick={handleSubmit}>{t('checkout.confirmAndPay')}</button>
         </div>
     );
 }

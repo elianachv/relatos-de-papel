@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from "react-i18next";
 import CartItem from './CartItem';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
@@ -7,6 +8,7 @@ import { AppRoutes } from '../../routes/appRoutes';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function CartPage() {
+    const { t } = useTranslation();
     const {
         cartItems,
         updateQuantity,
@@ -59,7 +61,7 @@ export default function CartPage() {
     };
     return (
         <div className="container py-4">
-            <h4 className="mb-4">Tu Carrito ({totalItems} {totalItems === 1 ? 'item' : 'items'})</h4>
+            <h4 className="mb-4">{t('cart.title')} ({totalItems} {totalItems === 1 ? t('cart.item') : t('cart.items')})</h4>
 
             <div className="row">
                 <div className="col-12 col-lg-8 mb-4 mb-lg-0">
@@ -67,7 +69,7 @@ export default function CartPage() {
                         {cartItems.length === 0 ? (
                             <div className="alert alert-info">
                                 <i className="bi bi-cart-x me-2"></i>
-                                Tu carrito está vacío
+                                {t('cart.empty')}
                             </div>
                         ) : (
                             cartItems.map(item => (
@@ -86,12 +88,12 @@ export default function CartPage() {
                     </div>
                     <div className="preliminary-subtotal">
                         <div className="price-row">
-                            <span className="text-muted">Subtotal preliminar:</span>
+                            <span className="text-muted">{t('cart.preliminarySubtotal')}</span>
                             <span className="fw-semibold">${subtotal.toFixed(2)}</span>
                         </div>
                         <p className="tax-notice">
                             <i className="bi bi-info-circle me-1"></i>
-                            Los impuestos y gastos de envío se calcularán en el checkout
+                            {t('cart.taxNotice')}
                         </p>
                     </div>
                 </div>
@@ -99,22 +101,22 @@ export default function CartPage() {
                 {/* Resumen */}
                 <div className="col-12 col-lg-4">
                     <div className="cart-summary-card">
-                        <h5 className="cart-summary-title">Resumen del pedido</h5>
+                        <h5 className="cart-summary-title">{t('cart.orderSummary')}</h5>
 
 
                         <div className="coupon-section">
-                            <label className="coupon-label">Código de descuento</label>
+                            <label className="coupon-label">{t('cart.discountCode')}</label>
                             {discountApplied ? (
                                 <div className="d-flex align-items-center justify-content-between mb-2">
                                     <span className="text-success small">
                                         <i className="bi bi-check-circle me-1"></i>
-                                        Cupón aplicado: {couponCode}
+                                        {t('cart.couponApplied')} {couponCode}
                                     </span>
                                     <button
                                         className="btn btn-sm btn-outline-danger"
                                         onClick={handleRemoveCoupon}
                                     >
-                                        Remover
+                                        {t('cart.remove')}
                                     </button>
                                 </div>
                             ) : (
@@ -122,7 +124,7 @@ export default function CartPage() {
                                     <input
                                         type="text"
                                         className="coupon-input"
-                                        placeholder="Ingrese su código"
+                                        placeholder={t('cart.enterCode')}
                                         value={coupon}
                                         onChange={(e) => setCoupon(e.target.value)}
                                     />
@@ -131,7 +133,7 @@ export default function CartPage() {
                                         onClick={handleApplyCoupon}
                                         disabled={!coupon.trim()}
                                     >
-                                        Aplicar
+                                        {t('cart.apply')}
                                     </button>
                                 </div>
                             )}
@@ -139,34 +141,34 @@ export default function CartPage() {
 
                         <div className="price-breakdown">
                             <div className="price-row">
-                                <span>Subtotal</span>
+                                <span>{t('cart.subtotal')}</span>
                                 <span>${subtotal.toFixed(2)}</span>
                             </div>
                             {discount > 0 && (
                                 <div className="price-row">
-                                    <span className="discount-text">Descuento</span>
+                                    <span className="discount-text">{t('cart.discount')}</span>
                                     <span className="discount-text">-${discount.toFixed(2)}</span>
                                 </div>
                             )}
                             <div className="price-row shipping-text">
-                                <span>Envío</span>
-                                <span className="text-success">Gratis</span>
+                                <span>{t('cart.shipping')}</span>
+                                <span className="text-success">{t('cart.free')}</span>
                             </div>
                         </div>
 
                         <div className="total-section">
-                            <span>Total</span>
+                            <span>{t('cart.total')}</span>
                             <span>${total.toFixed(2)}</span>
                         </div>
 
                         <button className="checkout-btn" onClick={handleProceedToCheckout}>
-                            Proceder al pago
+                            {t('cart.proceedToPayment')}
                         </button>
                     </div>
 
                     <div className="continue-shopping">
                         <NavLink to={AppRoutes.home}>
-                            Continuar comprando
+                            {t('cart.continueShopping')}
                         </NavLink>
                     </div>
                 </div>

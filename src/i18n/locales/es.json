@@ -68,6 +68,45 @@
     "reviewRequirementPurchased": "Debes haber comprado este libro para publicar una reseña",
     "reviewRequirementLogin": "Debes iniciar sesión y haber comprado este libro para publicar una reseña",
     "noReviewsYet": "Aún no hay reseñas para este libro. ¡Sé el primero en opinar!"
+  },
+  "cart": {
+    "title": "Tu Carrito",
+    "item": "item",
+    "items": "items",
+    "empty": "Tu carrito está vacío",
+    "preliminarySubtotal": "Subtotal preliminar:",
+    "taxNotice": "Los impuestos y gastos de envío se calcularán en el checkout",
+    "orderSummary": "Resumen del pedido",
+    "discountCode": "Código de descuento",
+    "couponApplied": "Cupón aplicado:",
+    "remove": "Remover",
+    "enterCode": "Ingrese su código",
+    "apply": "Aplicar",
+    "subtotal": "Subtotal",
+    "discount": "Descuento",
+    "shipping": "Envío",
+    "free": "Gratis",
+    "total": "Total",
+    "proceedToPayment": "Proceder al pago",
+    "continueShopping": "Continuar comprando",
+    "removeItemConfirm": "¿Eliminar \"{{itemName}}\" del carrito?",
+    "removeItem": "Eliminar {{itemName}} del carrito",
+    "decreaseQuantity": "Reducir cantidad",
+    "increaseQuantity": "Aumentar cantidad",
+    "perUnit": "c/u",
+    "emptyCart": "El carrito está vacío",
+    "invalidCoupon": "Cupón no válido",
+    "couponAppliedSuccess": "Cupón aplicado correctamente",
+    "purchaseSuccess": "¡Compra realizada con éxito!"
+  },
+  "checkout": {
+    "title": "Finalizar compra",
+    "shippingAddress": "Dirección de envío",
+    "paymentMethod": "Metodo de pago",
+    "creditDebitCard": "Tarjeta de Crédito / Débito",
+    "paypal": "PayPal",
+    "confirmAndPay": "Confirmar y pagar",
+    "addressRequired": "Por favor, ingresa una dirección de envío"
   }
 }
 

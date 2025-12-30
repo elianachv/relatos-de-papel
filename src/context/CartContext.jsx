@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import i18n from "../i18n";
 import { useAuth } from "./AuthContext";
 const CartContext = createContext(null);
 const couponCodes = {
@@ -155,7 +156,7 @@ export function CartProvider({ children }) {
   // Aplicar cupón de descuento
   const applyCoupon = (coupon) => {
     if (!coupon || !coupon.trim()) {
-      return { success: false, message: 'Cupón no válido' };
+      return { success: false, message: i18n.t('cart.invalidCoupon') };
     }
 
     const discountRate = couponCodes[coupon.toUpperCase()];
@@ -165,9 +166,9 @@ export function CartProvider({ children }) {
       const discountAmount = subtotal * discountRate;
       setDiscount(discountAmount);
       setCouponCode(coupon.toUpperCase());
-      return { success: true, message: 'Cupón aplicado correctamente' };
+      return { success: true, message: i18n.t('cart.couponAppliedSuccess') };
     } else {
-      return { success: false, message: 'Cupón no válido' };
+      return { success: false, message: i18n.t('cart.invalidCoupon') };
     }
   };
 
@@ -191,13 +192,13 @@ export function CartProvider({ children }) {
   const processOrder = (formData) => {
     // Validar que haya items en el carrito
     if (cartItems.length === 0) {
-      alert('El carrito está vacío');
+      alert(i18n.t('cart.emptyCart'));
       return;
     }
 
     // Validar dirección
     if (!formData.address.trim()) {
-      alert('Por favor, ingresa una dirección de envío');
+      alert(i18n.t('checkout.addressRequired'));
       return;
     }
 
@@ -249,7 +250,7 @@ export function CartProvider({ children }) {
     // Limpiar el carrito
     clearCart();
 
-    alert('¡Compra realizada con éxito!');
+    alert(i18n.t('cart.purchaseSuccess'));
   }
   const value = {
     cartItems,
