@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { AppRoutes } from "../../routes/appRoutes";
 import { getMinMaxPrice } from "../../utilities/utils";
 import Pagination from "../../components/shared/Pagination";
@@ -11,6 +12,7 @@ const ITEMS_PER_PAGE = 10;
 const DEBOUNCE_DELAY = 300;
 
 export default function CatalogPage() {
+    const { t } = useTranslation();
     const { minPrecio = 0, maxPrecio = 0 } = getMinMaxPrice(catalog_list);
     const location = useLocation();
 
@@ -128,11 +130,11 @@ export default function CatalogPage() {
             <div className="row h-100">
 
                 <div className="col col-md-3 border-end filter-form">
-                    <h5>Filtros</h5>
+                    <h5>{t('catalog.filters')}</h5>
 
                     <form className="mb-3">
                         <label className="form-label">
-                            Rango de precio: ${priceFilter}
+                            {t('catalog.priceRange')} ${priceFilter}
                         </label>
 
                         <input
@@ -153,7 +155,7 @@ export default function CatalogPage() {
 
                     <form className="mb-3">
                         <label htmlFor="ratingFilter" className="form-label">
-                            Calificación por estrellas
+                            {t('catalog.ratingByStars')}
                         </label>
                         <select 
                             name="ratingFilter" 
@@ -162,18 +164,18 @@ export default function CatalogPage() {
                             value={ratingFilter}
                             onChange={handleRatingFilterChange}
                         >
-                            <option value="0">Todas las calificaciones</option>
-                            <option value="5">⭐⭐⭐⭐⭐ 5 estrellas</option>
-                            <option value="4">⭐⭐⭐⭐ 4 estrellas o más</option>
-                            <option value="3">⭐⭐⭐ 3 estrellas o más</option>
-                            <option value="2">⭐⭐ 2 estrellas o más</option>
-                            <option value="1">⭐ 1 estrella o más</option>
+                            <option value="0">{t('catalog.allRatings')}</option>
+                            <option value="5">{t('catalog.fiveStars')}</option>
+                            <option value="4">{t('catalog.fourStarsOrMore')}</option>
+                            <option value="3">{t('catalog.threeStarsOrMore')}</option>
+                            <option value="2">{t('catalog.twoStarsOrMore')}</option>
+                            <option value="1">{t('catalog.oneStarOrMore')}</option>
                         </select>
                     </form>
 
                     <form className="mb-3">
                         <label htmlFor="yearFilter" className="form-label">
-                            Año de publicación
+                            {t('catalog.publicationYear')}
                         </label>
                         <select 
                             name="yearFilter" 
@@ -182,7 +184,7 @@ export default function CatalogPage() {
                             value={yearFilter}
                             onChange={handleYearFilterChange}
                         >
-                            <option value="">Todos los años</option>
+                            <option value="">{t('catalog.allYears')}</option>
                             {availableYears.map(year => (
                                 <option key={year} value={year.toString()}>
                                     {year}
@@ -202,21 +204,21 @@ export default function CatalogPage() {
                         <input
                             type="search"
                             className="form-control"
-                            placeholder="Buscar libro, autor, descripción..."
+                            placeholder={t('catalog.searchPlaceholder')}
                             value={searchInput}
                             onChange={(e) => setSearchInput(e.target.value)}
                         />
                         <button className="btn btn-dark" type="submit">
-                            Buscar
+                            {t('catalog.search')}
                         </button>
-                        <button className="btn btn-primary" type="button" onClick={handleReset}>Reset</button>
+                        <button className="btn btn-primary" type="button" onClick={handleReset}>{t('catalog.reset')}</button>
                     </form>
 
 
                     <div className="catalog-list">
                         {paginatedItems.length === 0 && (
                             <p className="text-muted">
-                                No se encontraron resultados.
+                                {t('catalog.noResults')}
                             </p>
                         )}
 

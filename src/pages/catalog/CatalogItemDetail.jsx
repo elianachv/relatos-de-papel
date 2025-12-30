@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useLocation, Navigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import AddToCartButton from '../../components/shared/AddToCartButton'
 import { useReviews } from '../../context/ReviewsContext';
 import imagen from '../../assets/images/error400-cover.png';
 import { formatDate } from "../../utilities/utils";
 
 export default function CatalogItemDetail() {
+    const { t } = useTranslation();
     const { book } = useLocation().state;
     const { getReviews, addReview, canUserPostReview, isAuthenticated } = useReviews();
     const [reviewText, setReviewText] = useState("");
@@ -23,12 +25,12 @@ export default function CatalogItemDetail() {
         if (stock > 0) {
             return (<p className="m-0 text-success small">
                 <span className="in-stock"></span>
-                En stock: {stock}
+                {t('catalog.inStock')} {stock}
             </p>)
         } else {
             return (<p className="m-0 text-danger small">
                 <span className="sold-out"></span>
-                Agotado
+                {t('catalog.outOfStock')}
             </p>)
         }
     }
@@ -40,7 +42,7 @@ export default function CatalogItemDetail() {
         try {
             addReview(titulo, reviewText);
             setReviewText("");
-            setSuccess("Reseña publicada exitosamente");
+            setSuccess(t('catalog.reviewPublished'));
             // Limpiar mensaje de éxito después de 3 segundos
             setTimeout(() => setSuccess(""), 3000);
         } catch (err) {
@@ -71,16 +73,16 @@ export default function CatalogItemDetail() {
                     className="mb-2"
                 />
                 <div className="alert alert-info" role="alert">
-                    <p className="m-0"><b>Entrega Digital:</b> Recibe el acceso instantáneo tras la compra.</p>
+                    <p className="m-0"><b>{t('catalog.digitalDelivery')}</b> {t('catalog.digitalDeliveryMessage')}</p>
                 </div>
             </div>
             <div className="separator"></div>
             <div className="container-detail-reviews">
-                <h4>Reseñas de la comunidad ⭐</h4>
+                <h4>{t('catalog.communityReviews')}</h4>
                 
                 {canPost && (
                     <div className="bg-body-tertiary p-4 rounded border mb-4">
-                        <h6>Escribir una reseña</h6>
+                        <h6>{t('catalog.writeReview')}</h6>
                         {error && (
                             <div className="alert alert-danger mt-2 mb-2" role="alert">
                                 {error}
@@ -93,7 +95,7 @@ export default function CatalogItemDetail() {
                         )}
                         <textarea 
                             className="form-control mt-2 mb-2" 
-                            placeholder="Escribe tu reseña aquí"
+                            placeholder={t('catalog.reviewPlaceholder')}
                             value={reviewText}
                             onChange={(e) => setReviewText(e.target.value)}
                             rows="4"
@@ -103,7 +105,7 @@ export default function CatalogItemDetail() {
                             onClick={handleSubmitReview}
                             disabled={!reviewText.trim()}
                         >
-                            Publicar reseña
+                            {t('catalog.publishReview')}
                         </button>
                     </div>
                 )}
@@ -111,14 +113,14 @@ export default function CatalogItemDetail() {
                 {!canPost && (
                     <div className="alert alert-info mb-4" role="alert">
                         {isAuthenticated ? 
-                            "Debes haber comprado este libro para publicar una reseña" :
-                            "Debes iniciar sesión y haber comprado este libro para publicar una reseña"
+                            t('catalog.reviewRequirementPurchased') :
+                            t('catalog.reviewRequirementLogin')
                         }
                     </div>
                 )}
 
                 {reviews.length === 0 ? (
-                    <p className="text-muted">Aún no hay reseñas para este libro. ¡Sé el primero en opinar!</p>
+                    <p className="text-muted">{t('catalog.noReviewsYet')}</p>
                 ) : (
                     <div className="d-flex flex-column gap-3">
                         {reviews.map((review) => (

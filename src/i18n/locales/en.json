@@ -34,6 +34,40 @@
   "accessibility": {
     "showPassword": "Show password",
     "hidePassword": "Hide password"
+  },
+  "catalog": {
+    "filters": "Filters",
+    "priceRange": "Price range:",
+    "ratingByStars": "Rating by stars",
+    "allRatings": "All ratings",
+    "fiveStars": "⭐⭐⭐⭐⭐ 5 stars",
+    "fourStarsOrMore": "⭐⭐⭐⭐ 4 stars or more",
+    "threeStarsOrMore": "⭐⭐⭐ 3 stars or more",
+    "twoStarsOrMore": "⭐⭐ 2 stars or more",
+    "oneStarOrMore": "⭐ 1 star or more",
+    "publicationYear": "Publication year",
+    "allYears": "All years",
+    "searchPlaceholder": "Search book, author, description...",
+    "search": "Search",
+    "reset": "Reset",
+    "noResults": "No results found.",
+    "viewDetail": "View detail",
+    "inStock": "In stock:",
+    "outOfStock": "Out of stock",
+    "addToCart": "Add to cart",
+    "inCart": "In cart",
+    "productOutOfStock": "Product out of stock",
+    "addToCartTitle": "Add \"{{title}}\" to cart",
+    "digitalDelivery": "Digital Delivery:",
+    "digitalDeliveryMessage": "Receive instant access after purchase.",
+    "communityReviews": "Community Reviews ⭐",
+    "writeReview": "Write a review",
+    "reviewPlaceholder": "Write your review here",
+    "publishReview": "Publish review",
+    "reviewPublished": "Review published successfully",
+    "reviewRequirementPurchased": "You must have purchased this book to post a review",
+    "reviewRequirementLogin": "You must log in and have purchased this book to post a review",
+    "noReviewsYet": "No reviews yet for this book. Be the first to review!"
   }
 }
 

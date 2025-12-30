@@ -34,6 +34,40 @@
   "accessibility": {
     "showPassword": "Mostrar contraseña",
     "hidePassword": "Ocultar contraseña"
+  },
+  "catalog": {
+    "filters": "Filtros",
+    "priceRange": "Rango de precio:",
+    "ratingByStars": "Calificación por estrellas",
+    "allRatings": "Todas las calificaciones",
+    "fiveStars": "⭐⭐⭐⭐⭐ 5 estrellas",
+    "fourStarsOrMore": "⭐⭐⭐⭐ 4 estrellas o más",
+    "threeStarsOrMore": "⭐⭐⭐ 3 estrellas o más",
+    "twoStarsOrMore": "⭐⭐ 2 estrellas o más",
+    "oneStarOrMore": "⭐ 1 estrella o más",
+    "publicationYear": "Año de publicación",
+    "allYears": "Todos los años",
+    "searchPlaceholder": "Buscar libro, autor, descripción...",
+    "search": "Buscar",
+    "reset": "Reset",
+    "noResults": "No se encontraron resultados.",
+    "viewDetail": "Ver detalle",
+    "inStock": "En stock:",
+    "outOfStock": "Agotado",
+    "addToCart": "Añadir al carrito",
+    "inCart": "En carrito",
+    "productOutOfStock": "Producto agotado",
+    "addToCartTitle": "Añadir \"{{title}}\" al carrito",
+    "digitalDelivery": "Entrega Digital:",
+    "digitalDeliveryMessage": "Recibe el acceso instantáneo tras la compra.",
+    "communityReviews": "Reseñas de la comunidad ⭐",
+    "writeReview": "Escribir una reseña",
+    "reviewPlaceholder": "Escribe tu reseña aquí",
+    "publishReview": "Publicar reseña",
+    "reviewPublished": "Reseña publicada exitosamente",
+    "reviewRequirementPurchased": "Debes haber comprado este libro para publicar una reseña",
+    "reviewRequirementLogin": "Debes iniciar sesión y haber comprado este libro para publicar una reseña",
+    "noReviewsYet": "Aún no hay reseñas para este libro. ¡Sé el primero en opinar!"
   }
 }
 

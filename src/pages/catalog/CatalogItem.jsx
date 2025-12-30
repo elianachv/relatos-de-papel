@@ -1,6 +1,9 @@
+import { useTranslation } from "react-i18next";
 import AddToCartButton from "../../components/shared/AddToCartButton";
 import imagen from '../../assets/images/error400-cover.png';
+
 export default function CatalogItem({ data, onViewDetail }) {
+    const { t } = useTranslation();
     const { url_caratula, titulo, calificacion = 0, precio_usd = 0 } = data;
     // Renderizar estrellas de calificación
     const renderStars = () => {
@@ -35,7 +38,7 @@ export default function CatalogItem({ data, onViewDetail }) {
                 <div className="catalog-item-price">${precio_usd.toFixed(2)}</div>
                 <div className="d-flex gap-2">
                     <button className="btn btn-info w-75 catalog-item-button" onClick={() => onViewDetail(data)}>
-                        Ver detalle
+                        {t('catalog.viewDetail')}
                     </button>
                     <AddToCartButton
                         book={data}
