@@ -2,7 +2,9 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { AppRoutes } from "../../../routes/appRoutes";
 import LanguageSwitcher from "../LanguageSwitcher";
+import { useAuth } from "../../../context/AuthContext";
 export default function Sidebar() {
+  const { isAuthenticated } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -23,11 +25,13 @@ export default function Sidebar() {
 
       {/* Navigation */}
       <ul className="nav nav-pills flex-column mb-auto">
-        <li className="nav-item">
-          <NavLink className="nav-link text-white" to={AppRoutes.auth}>
-            🔒 {!collapsed && "Iniciar sesión"}
-          </NavLink>
-        </li>
+        {!isAuthenticated && (
+          <li className="nav-item">
+            <NavLink className="nav-link text-white" to={AppRoutes.auth}>
+              🔒 {!collapsed && "Iniciar sesión"}
+            </NavLink>
+          </li>
+        )}
         <li className="nav-item">
           <NavLink className="nav-link text-white" to={AppRoutes.home}>
             📚 {!collapsed && "Catálogo"}
@@ -38,11 +42,15 @@ export default function Sidebar() {
             🛒 {!collapsed && "Carrito"}
           </NavLink>
         </li>
-        <li className="nav-item">
-          <NavLink className="nav-link text-white" to={AppRoutes.private.orders}>
-            🧾 {!collapsed && "Mis pedidos"}
-          </NavLink>
-        </li>
+        {
+          isAuthenticated && (
+            <li className="nav-item">
+              <NavLink className="nav-link text-white" to={AppRoutes.private.orders}>
+                🧾 {!collapsed && "Mis pedidos"}
+              </NavLink>
+            </li>
+          )
+        }
       </ul>
 
       {/* Language */}

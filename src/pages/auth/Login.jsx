@@ -2,19 +2,8 @@ import React, { useState } from 'react';
 import EmailField from '../../components/form/EmailField';
 import PasswordField from '../../components/form/PasswordField';
 
-export default function Login({ handleLoginSubmit, loginData: initialData }) {
-    const [loginData, setLoginData] = useState(initialData || { email: '', password: '' });
-    const [errors, setErrors] = useState({});  //Para errores
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setLoginData(prev => ({ ...prev, [name]: value }));
-
-        // Limpiar error cuando el usuario escribe
-        if (errors[name]) {
-            setErrors(prev => ({ ...prev, [name]: null }));
-        }
-    };
+export default function Login({ handleLoginSubmit, handleLoginChange, loginData }) {
+    const [errors, setErrors] = useState({});
 
     const validateForm = () => {
         const newErrors = {};
@@ -39,7 +28,6 @@ export default function Login({ handleLoginSubmit, loginData: initialData }) {
         e.preventDefault();
 
         if (validateForm()) {
-            // Llamar a la función que viene por props
             handleLoginSubmit(loginData);
         }
     };
@@ -48,13 +36,13 @@ export default function Login({ handleLoginSubmit, loginData: initialData }) {
         <form onSubmit={handleSubmit}>
             <EmailField
                 value={loginData.email}
-                onChange={handleChange}
+                onChange={handleLoginChange}
                 error={errors.email}
             />
 
             <PasswordField
                 value={loginData.password}
-                onChange={handleChange}
+                onChange={handleLoginChange}
                 error={errors.password}
                 showToggle={true}
             />

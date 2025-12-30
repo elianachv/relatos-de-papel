@@ -35,7 +35,6 @@ export default function AuthPage() {
     };
 
     const handleLoginSubmit = (e) => {
-        e.preventDefault();
         login(loginData);
         navigate(AppRoutes.home);
 
