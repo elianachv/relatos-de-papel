@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../routes/appRoutes';
 import './LandingPage.css';
+import catalog_list from "../../utilities/catalog_list.json";
 
 export default function LandingPage() {
     const navigate = useNavigate();
@@ -61,37 +62,32 @@ export default function LandingPage() {
                     </section>
 
                     <section className="preview-section">
-                        <h3 className="preview-title">Algunos de nuestros destacados</h3>
+                        <h3 className="preview-title">Libros más populares este mes</h3>
                         <div className="book-preview-grid">
-                            <div className="preview-book">
-                                <div className="preview-book-cover" style={{backgroundColor: '#2c3e50'}}>
-                                    <span className="preview-book-title">Clean Code</span>
+                            {catalog_list.pages[0].items.slice(0, 4).map((book, index) => (
+                                <div key={index} className="preview-book">
+                                    <div
+                                        className="preview-book-cover"
+                                        style={{
+                                            backgroundImage: `url(${book.url_caratula})`,
+                                            backgroundSize: 'cover'
+                                        }}
+                                    >
+                    <span className="preview-book-title">
+                        {book.titulo.split(' ')[0]} {book.titulo.split(' ')[1]}
+                    </span>
+                                    </div>
+                                    <div className="preview-book-info">
+                                        <div className="preview-book-author">{book.autor.split(',')[0]}</div>
+                                        <div className="preview-book-rating">
+                                            {'★'.repeat(Math.floor(book.calificacion))}
+                                            {'☆'.repeat(5 - Math.floor(book.calificacion))}
+                                            <span> {book.calificacion.toFixed(1)}</span>
+                                        </div>
+                                        <div className="preview-book-price">${book.precio_usd}</div>
+                                    </div>
                                 </div>
-                                <div className="preview-book-info">
-                                    <div className="preview-book-rating">★★★★☆ 4.7</div>
-                                    <div className="preview-book-price">$37.99</div>
-                                </div>
-                            </div>
-
-                            <div className="preview-book">
-                                <div className="preview-book-cover" style={{backgroundColor: '#3498db'}}>
-                                    <span className="preview-book-title">Pragmatic Programmer</span>
-                                </div>
-                                <div className="preview-book-info">
-                                    <div className="preview-book-rating">★★★★☆ 4.8</div>
-                                    <div className="preview-book-price">$45.00</div>
-                                </div>
-                            </div>
-
-                            <div className="preview-book">
-                                <div className="preview-book-cover" style={{backgroundColor: '#e74c3c'}}>
-                                    <span className="preview-book-title">Algorithms</span>
-                                </div>
-                                <div className="preview-book-info">
-                                    <div className="preview-book-rating">★★★★☆ 4.5</div>
-                                    <div className="preview-book-price">$94.99</div>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                     </section>
 
