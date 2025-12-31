@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../routes/appRoutes';
 import './LandingPage.css';
 import catalog_list from "../../utilities/catalog_list.json";
+import CatalogItem from '../catalog/CatalogItem.jsx';
 
 export default function LandingPage() {
     const navigate = useNavigate();
     const [countdown, setCountdown] = useState(5);
 
     useEffect(() => {
-        // Contador regresivo
+
         const countdownInterval = setInterval(() => {
             setCountdown(prev => {
                 if (prev <= 1) {
@@ -21,7 +22,6 @@ export default function LandingPage() {
             });
         }, 1000);
 
-        // Redirección automática de respaldo
         const redirectTimer = setTimeout(() => {
             navigate(AppRoutes.home);
         }, 5000);
@@ -35,6 +35,10 @@ export default function LandingPage() {
     const handleSkip = () => {
         navigate(AppRoutes.home);
     };
+
+    const Items = useMemo(() => {
+        return catalog_list.pages.flatMap(page => page.items).slice(0, 3);
+    }, []);
 
     return (
         <div className="landing-container">
@@ -61,33 +65,30 @@ export default function LandingPage() {
                         </div>
                     </section>
 
-                    <section className="preview-section">
+                    <section className="preview-section landing-books-section">
                         <h3 className="preview-title">Libros más populares este mes</h3>
-                        <div className="book-preview-grid">
-                            {catalog_list.pages[0].items.slice(0, 4).map((book, index) => (
-                                <div key={index} className="preview-book">
+                        <div className="book-preview-grid landing-book-grid">
+                            {Items.slice(0, 4).map((book, index) => {
+                                const colors = ['#75704e', '#3c513b', '#934e43'];
+                                const currentColor = colors[index];
+                                return (
                                     <div
-                                        className="preview-book-cover"
-                                        style={{
-                                            backgroundImage: `url(${book.url_caratula})`,
-                                            backgroundSize: 'cover'
-                                        }}
+                                        key={`featured-${index}`}
+                                        className={`landing-book-card landing-book-${index}`}
+                                        style={{ '--card-color': currentColor }}
                                     >
-                    <span className="preview-book-title">
-                        {book.titulo.split(' ')[0]} {book.titulo.split(' ')[1]}
-                    </span>
+                                        <CatalogItem
+                                            data={book}
+                                            onViewDetail={() => {
+                                                navigate(AppRoutes.bookDetail.replace(":id", book.titulo), {
+                                                    replace: true,
+                                                    state: { book }
+                                                });
+                                            }}
+                                        />
                                     </div>
-                                    <div className="preview-book-info">
-                                        <div className="preview-book-author">{book.autor.split(',')[0]}</div>
-                                        <div className="preview-book-rating">
-                                            {'★'.repeat(Math.floor(book.calificacion))}
-                                            {'☆'.repeat(5 - Math.floor(book.calificacion))}
-                                            <span> {book.calificacion.toFixed(1)}</span>
-                                        </div>
-                                        <div className="preview-book-price">${book.precio_usd}</div>
-                                    </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </section>
 
