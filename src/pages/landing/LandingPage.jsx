@@ -4,6 +4,7 @@ import { AppRoutes } from '../../routes/appRoutes';
 import './LandingPage.css';
 import catalog_list from "../../utilities/catalog_list.json";
 import CatalogItem from '../catalog/CatalogItem.jsx';
+import FeatureCard from '../../components/FeatureCard/FeatureCard.jsx';
 
 export default function LandingPage() {
     const navigate = useNavigate();
@@ -94,37 +95,26 @@ export default function LandingPage() {
 
                     <section className="features-section">
                         <div className="features-grid">
-                            <div className="feature-card">
-                                <div className="feature-icon">📚</div>
-                                <div className="feature-content">
-                                    <h3>Catálogo Exclusivo</h3>
-                                    <p>+10,000 libros seleccionados por expertos</p>
-                                </div>
-                            </div>
-
-                            <div className="feature-card">
-                                <div className="feature-icon">⚡</div>
-                                <div className="feature-content">
-                                    <h3>Acceso Instantáneo</h3>
-                                    <p>Descarga inmediata tras tu compra</p>
-                                </div>
-                            </div>
-
-                            <div className="feature-card">
-                                <div className="feature-icon">📦</div>
-                                <div className="feature-content">
-                                    <h3>Envío Seguro Garantizado</h3>
-                                    <p>Protección total de tu pedido desde nuestro almacén hasta tu puerta</p>
-                                </div>
-                            </div>
-
-                            <div className="feature-card">
-                                <div className="feature-icon">🔒</div>
-                                <div className="feature-content">
-                                    <h3>Compra Segura</h3>
-                                    <p>Protección SSL y garantía de devolución</p>
-                                </div>
-                            </div>
+                            <FeatureCard
+                                icon="📚"
+                                title="Catálogo Exclusivo"
+                                description="+10,000 libros seleccionados por expertos"
+                            />
+                            <FeatureCard
+                                icon="⚡"
+                                title="Acceso Instantáneo"
+                                description="Descarga inmediata tras tu compra"
+                            />
+                            <FeatureCard
+                                icon="📦"
+                                title="Envío Seguro Garantizado"
+                                description="Protección total de tu pedido desde nuestro almacén hasta tu puerta"
+                            />
+                            <FeatureCard
+                                icon="🔒"
+                                title="Compra Segura"
+                                description="Protección SSL y garantía de devolución"
+                            />
                         </div>
                     </section>
                 </main>
