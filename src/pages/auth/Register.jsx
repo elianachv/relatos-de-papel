@@ -1,19 +1,43 @@
-import React from 'react';
+import { useState } from 'react';
 import { useTranslation } from "react-i18next";
 import EmailField from '../../components/form/EmailField.jsx';
 import PasswordField from '../../components/form/PasswordField.jsx';
 import CheckboxField from '../../components/form/CheckboxField.jsx';
 
-export default function Register({
-                                     handleRegisterSubmit,
-                                     handleRegisterChange,
-                                     registerData,
-                                     errors = {}  // errors como prop
-                                 }) {
+export default function Register({ handleRegisterSubmit, handleRegisterChange, registerData }) {
     const { t } = useTranslation();
+    const [errors, setErrors] = useState({});
+
+    const validateForm = () => {
+        const newErrors = {};
+
+        if (!registerData.email) {
+            newErrors.email = t('validation.emailRequired');
+        } else if (!/\S+@\S+\.\S+/.test(registerData.email)) {
+            newErrors.email = t('validation.emailInvalid');
+        }
+
+        if (!registerData.password) {
+            newErrors.password = t('validation.passwordRequired');
+        } else if (registerData.password.length < 6) {
+            newErrors.password = t('validation.passwordMinLength');
+        }
+
+        setErrors(newErrors);
+        console.log("Errores", newErrors)
+        return Object.keys(newErrors).length === 0;
+    };       
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (validateForm()) {
+            handleRegisterSubmit(registerData);
+        }
+    };           
+
     return (
-        <form onSubmit={handleRegisterSubmit}>
-            {/* Campo de Email */}
+        <form onSubmit={handleSubmit}>
             <EmailField
                 value={registerData.email}
                 onChange={handleRegisterChange}
@@ -22,7 +46,6 @@ export default function Register({
                 placeholder={t('auth.emailPlaceholder')}
             />
 
-            {/* Campo de Password */}
             <PasswordField
                 value={registerData.password}
                 onChange={handleRegisterChange}
@@ -32,7 +55,6 @@ export default function Register({
                 placeholder=""
             />
 
-            {/* Campo de Confirmar Password */}
             <PasswordField
                 value={registerData.confirmPassword}
                 onChange={handleRegisterChange}
@@ -44,7 +66,6 @@ export default function Register({
                 showToggle={true}
             />
 
-            {/* Checkbox de Términos y Condiciones */}
             <CheckboxField
                 name="terms"
                 id="terms"

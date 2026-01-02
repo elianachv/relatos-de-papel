@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import EmailField from "../../components/form/EmailField";
+import { infoAlert } from "../../utilities/alerts";
 
 export default function ForgotPassword({ onClose }) {
     const { t } = useTranslation();
@@ -33,7 +34,7 @@ export default function ForgotPassword({ onClose }) {
         if (!validateForm()) return;
 
         // MPV sin backend: simulación de envío
-        alert(
+        infoAlert(
             t("auth.recoveryEmailSent") ||
             "Te hemos enviado un correo con instrucciones para recuperar tu contraseña."
         );

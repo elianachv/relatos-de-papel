@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { AppRoutes } from '../../routes/appRoutes';
 import Login from './Login';
 import Register from './Register';
+import { errorAlert, warningAlert } from '../../utilities/alerts';
 
 export default function AuthPage() {
     const { login } = useAuth();
@@ -36,22 +37,21 @@ export default function AuthPage() {
         }));
     };
 
-    const handleLoginSubmit = (e) => {
+    const handleLoginSubmit = () => {
         login(loginData);
         navigate(AppRoutes.home);
 
     };
 
-    const handleRegisterSubmit = (e) => {
-        e.preventDefault();
+    const handleRegisterSubmit = () => {
 
         if (registerData.password !== registerData.confirmPassword) {
-            alert(t('validation.passwordsDoNotMatch'));
+            errorAlert(t('alert.checkAuthData'),t('validation.passwordsDoNotMatch'));
             return;
         }
 
         if (!registerData.terms) {
-            alert(t('validation.mustAcceptTerms'));
+            warningAlert(t('validation.mustAcceptTerms'), '', false);
             return;
         }
 

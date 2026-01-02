@@ -131,6 +131,10 @@
     "viewMoreResults": "Ver más resultados",
     "myAccount": "Mi cuenta",
     "logout": "Cerrar sesión"
+  },
+  "alert": {
+    "checkAuthData": "Revisa los datos de autenticación",
+    "checkCartData": "Revisa tu carrito"
   }
 }
 
