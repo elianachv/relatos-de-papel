@@ -4,7 +4,7 @@ import { AppRoutes } from '../../routes/appRoutes';
 import './LandingPage.css';
 import catalog_list from "../../utilities/catalog_list.json";
 import CatalogItem from '../catalog/CatalogItem.jsx';
-import FeatureCard from '../../components/FeatureCard/FeatureCard.jsx';
+import FeatureCard from '../../components/featureCard/FeatureCard.jsx';
 
 export default function LandingPage() {
     const navigate = useNavigate();
