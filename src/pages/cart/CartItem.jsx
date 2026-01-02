@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { askAlert } from '../../utilities/alerts';
 
 export default function CartItem({
                                      itemId,
@@ -39,12 +40,19 @@ export default function CartItem({
         }
     };
 
-    const handleRemoveClick = () => {
-        if (window.confirm(t('cart.removeItemConfirm', { itemName }))) {
-            if (onRemove) {
+    const confirmRemoveItem = () => {
+         if (onRemove) {
                 onRemove(itemId);
             }
-        }
+    }
+
+    const handleRemoveClick = () => {
+       askAlert(
+        t('cart.removeItemConfirm', { itemName }), 
+        t('common.confirm'), 
+        t('common.cancel'), 
+        confirmRemoveItem
+    )
     };
 
     return (

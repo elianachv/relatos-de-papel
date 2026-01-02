@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import './cart.css';
 import { AppRoutes } from '../../routes/appRoutes';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { warningAlert } from '../../utilities/alerts';
 
 export default function CartPage() {
     const { t } = useTranslation();
@@ -43,7 +44,7 @@ export default function CartPage() {
 
         const result = applyCoupon(coupon);
         if (!result.success) {
-            alert(result.message);
+            warningAlert(result.message, '', false);
         }
     };
 

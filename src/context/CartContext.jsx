@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import i18n from "../i18n";
 import { useAuth } from "./AuthContext";
+import { errorAlert, successAlert, warningAlert } from "../utilities/alerts";
 const CartContext = createContext(null);
 const couponCodes = {
   'DESCUENTO10': 0.10,
@@ -192,13 +193,13 @@ export function CartProvider({ children }) {
   const processOrder = (formData) => {
     // Validar que haya items en el carrito
     if (cartItems.length === 0) {
-      alert(i18n.t('cart.emptyCart'));
+      warningAlert(i18n.t('alert.checkCartData'),i18n.t('cart.emptyCart', false));
       return;
     }
 
     // Validar dirección
     if (!formData.address.trim()) {
-      alert(i18n.t('checkout.addressRequired'));
+      errorAlert(i18n.t('alert.checkCartData'),i18n.t('checkout.addressRequired'), false);
       return;
     }
 
@@ -250,8 +251,9 @@ export function CartProvider({ children }) {
     // Limpiar el carrito
     clearCart();
 
-    alert(i18n.t('cart.purchaseSuccess'));
+    successAlert(i18n.t('cart.purchaseSuccess'), '', false);
   }
+  
   const value = {
     cartItems,
     addToCart,

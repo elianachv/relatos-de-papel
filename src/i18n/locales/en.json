@@ -131,6 +131,10 @@
     "viewMoreResults": "View more results",
     "myAccount": "My account",
     "logout": "Logout"
+  },
+  "alert": {
+    "checkAuthData": "Check auth data",
+    "checkCartData": "Check your cart"
   }
 }
 
